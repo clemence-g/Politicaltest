@@ -7,7 +7,7 @@ Created on Fri Oct 24 18:10:40 2025
 import streamlit as st
 import pandas as pd
 
-df = pd.read_csv("https://github.com/clemence-g/Politicaltest/blob/b246cfea279cf604d7bd5ccef4fd5ed9e952d70d/votes.csv",sep=";", encoding="latin1")
+df = pd.read_csv("https://raw.githubusercontent.com/clemence-g/Politicaltest/b246cfea279cf604d7bd5ccef4fd5ed9e952d70d/votes.csv", sep=";", encoding="latin1")
 
 acronyme_nom = {'DR' : "Droite Républicaine", 'EPR':"Ensemble pour la République", 'GDR' : "Gauche Démocrate et Républicaine", 'HOR':"Horizons & Indépendants", 'LFI':"La France insoumise - NFP", 'DEM':"Les Démocrates",
        'LIOT':"Libertés, Indépendants, Outre-mer et Territoires", 'RN':"Rassemblement National", 'SOC':"Socialistes et apparentés", 'UDDPLR':"UDR", 'ECOS':"Écologiste et Social"}
@@ -97,3 +97,4 @@ else:
 
 
         
+
