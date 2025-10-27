@@ -8,8 +8,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv("https://raw.githubusercontent.com/clemence-g/Politicaltest/b246cfea279cf604d7bd5ccef4fd5ed9e952d70d/votes.csv",sep=";", encoding="latin1")
-
+df = pd.read_csv("https://raw.githubusercontent.com/clemence-g/Politicaltest/3ae7e697af8cadd3cb1847ff6e5112d24ce6769c/votes.csv",sep=";", encoding="latin1")
 
 photos_partis = {'DR' : "https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/DR.jpg",
                 'EPR':"https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/EPR.jpg",
@@ -163,4 +162,5 @@ else:
 
 
         
+
 
