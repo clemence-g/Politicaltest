@@ -8,21 +8,21 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv(r"C:\Users\User\Documents\autre\Projets python\Quiz politique\votes.csv",sep=";", encoding="latin1")
+df = pd.read_csv("https://raw.githubusercontent.com/clemence-g/Politicaltest/b246cfea279cf604d7bd5ccef4fd5ed9e952d70d/votes.csv",
+    ,sep=";", encoding="latin1")
 
 
-
-photos_partis = {'DR' : r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\DR.jpg",
-                'EPR':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\EPR.jpg",
-                'GDR' : r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\gdr.jpg",
-                'HOR':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\hor.jpeg",
-                'LFI':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\lfi.jpg",
-                'DEM':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\DEM.jpg",
-                'LIOT':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\liot.jpg",
-                'RN':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\RN.jpg", 
-                'SOC':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\SOC.jpg",
-                'UDDPLR':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\UDDPLR.jpg",
-               'ECOS':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\ECOS.jpg"}
+photos_partis = {'DR' : "https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/DR.jpg",
+                'EPR':"https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/EPR.jpg",
+                'GDR' : "https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/gdr.jpg",
+                'HOR':"https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/hor.jpeg",
+                'LFI':"https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/lfi.jpg",
+                'DEM':"https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/DEM.jpg",
+                'LIOT':"https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/liot.jpg",
+                'RN':"https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/RN.jpg", 
+                'SOC':"https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/SOC.jpg",
+                'UDDPLR':"https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/UDDPLR.jpg",
+               'ECOS':"https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/ECOS.jpg"}
 
 acronyme_nom = {'DR' : "Droite Républicaine",
                 'EPR':"Ensemble pour la République",
@@ -161,5 +161,6 @@ else:
         
         st.session_state.points = {parti: 0 for parti in parti_liste}
         st.session_state.vote_index = 0
+
 
         
