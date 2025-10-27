@@ -7,9 +7,22 @@ Created on Fri Oct 24 18:10:40 2025
 import streamlit as st
 import pandas as pd
 import numpy as np
-image_1 = "https://raw.githubusercontent.com/clemence-g/Politicaltest/e84564a5067fd449b1f279c57f3485ec7ed927b5/emoticone-du-pouce-vers-haut_1303870-11.jpg"
 
-df = pd.read_csv(r"https://raw.githubusercontent.com/clemence-g/Politicaltest/8d881cca820667e9c02b61dd316f71c39917389b/votes.csv", sep=";", encoding="latin1")
+df = pd.read_csv(r"C:\Users\User\Documents\autre\Projets python\Quiz politique\votes.csv",sep=";", encoding="latin1")
+
+
+
+photos_partis = {'DR' : r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\DR.jpg",
+                'EPR':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\EPR.jpg",
+                'GDR' : r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\gdr.jpg",
+                'HOR':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\hor.jpeg",
+                'LFI':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\lfi.jpg",
+                'DEM':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\DEM.jpg",
+                'LIOT':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\liot.jpg",
+                'RN':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\RN.jpg", 
+                'SOC':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\SOC.jpg",
+                'UDDPLR':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\UDDPLR.jpg",
+               'ECOS':r"C:\Users\User\Documents\autre\Projets python\Quiz politique\images\ECOS.jpg"}
 
 acronyme_nom = {'DR' : "Droite Républicaine",
                 'EPR':"Ensemble pour la République",
@@ -77,8 +90,8 @@ st.title("Quiz Politique - À quel parti appartenez-vous ?")
 # --- Vérifier si on a fini tous les votes ---
 if st.session_state.vote_index < len(df):
     vote = st.session_state.vote_index
-    st.write("### Vote", vote+1)
-    st.write(df.loc[vote, 'Titre'])
+    st.write("#### Vote", vote+1, "sur", len(df)+1)
+    st.subheader(df.loc[vote, 'Titre'])
     
     
     pour = st.button("Pour", key=f"p_{vote}")
@@ -126,16 +139,20 @@ else:
     if len(winners) == 1:
         st.write("Le parti qui vous correspond le plus est", acronyme_nom[winners[0]], "(", winners[0], ")")
         st.write(f"[Voir la description du groupe sur datan.fr](https://datan.fr/groupes/legislature-17/{winners[0]})")
+        col1, col2, col3 = st.columns([1,2,1])  # la colonne du milieu est plus large
+        with col2:
+            st.image(photos_partis[winners[0]]) 
     else:
         st.write("Les partis qui vous correspondent le plus sont: ")
         for parti in winners  :
             st.write(acronyme_nom[parti], "(",parti,")")
             st.write(f"[Voir la description du groupe sur datan.fr](https://datan.fr/groupes/legislature-17/{parti})")
+            col1, col2, col3 = st.columns([1,2,1])  # la colonne du milieu est plus large
+            with col2:
+                st.image(photos_partis[parti]) 
             
     points_sorted = dict(sorted(st.session_state.points.items(), key=lambda item: int(item[1]), reverse=True))
-    col1, col2, col3 = st.columns([1,2,1])  # la colonne du milieu est plus large
-    with col2:
-        st.image(image_1, width=200)    
+   
     st.bar_chart(data=points_sorted, horizontal = True, x_label = "Points", y_label = "Partis", sort = False, use_container_width=False,width = 600,height = 400,color = "#ffaa00")
     
     
@@ -145,7 +162,4 @@ else:
         st.session_state.points = {parti: 0 for parti in parti_liste}
         st.session_state.vote_index = 0
 
-
         
-
-
