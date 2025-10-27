@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 image_1 = "https://raw.githubusercontent.com/clemence-g/Politicaltest/e84564a5067fd449b1f279c57f3485ec7ed927b5/emoticone-du-pouce-vers-haut_1303870-11.jpg"
 
-df = pd.read_csv(r"https://raw.githubusercontent.com/clemence-g/Politicaltest/b246cfea279cf604d7bd5ccef4fd5ed9e952d70d/votes.csv", sep=";", encoding="latin1")
+df = pd.read_csv(r"https://raw.githubusercontent.com/clemence-g/Politicaltest/8d881cca820667e9c02b61dd316f71c39917389b/votes.csv", sep=";", encoding="latin1")
 
 acronyme_nom = {'DR' : "Droite Républicaine",
                 'EPR':"Ensemble pour la République",
@@ -147,4 +147,5 @@ else:
 
 
         
+
 
