@@ -7,6 +7,7 @@ Created on Fri Oct 24 18:10:40 2025
 import streamlit as st
 import pandas as pd
 import numpy as np
+image_1 = "https://raw.githubusercontent.com/clemence-g/Politicaltest/e84564a5067fd449b1f279c57f3485ec7ed927b5/emoticone-du-pouce-vers-haut_1303870-11.jpg"
 
 df = pd.read_csv(r"C:\Users\User\Documents\autre\Projets python\votes.csv",sep=";", encoding="latin1")
 
@@ -134,7 +135,7 @@ else:
     points_sorted = dict(sorted(st.session_state.points.items(), key=lambda item: int(item[1]), reverse=True))
     col1, col2, col3 = st.columns([1,2,1])  # la colonne du milieu est plus large
     with col2:
-        st.image("emoticone-du-pouce-vers-haut_1303870-11.jpg", width=200)    
+        st.image(image_1, width=200)    
     st.bar_chart(data=points_sorted, horizontal = True, x_label = "Points", y_label = "Partis", sort = False, use_container_width=False,width = 600,height = 400,color = "#ffaa00")
     
     
@@ -143,5 +144,6 @@ else:
         
         st.session_state.points = {parti: 0 for parti in parti_liste}
         st.session_state.vote_index = 0
+
 
         
