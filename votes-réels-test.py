@@ -17,6 +17,9 @@ service_account_info = json.loads(st.secrets["GOOGLE_CREDENTIALS"])
 creds = Credentials.from_service_account_info(service_account_info, scopes=SCOPE)
 client = gspread.authorize(creds)
 
+st.write(st.secrets)
+
+
 df = pd.read_csv("https://raw.githubusercontent.com/clemence-g/Politicaltest/3ae7e697af8cadd3cb1847ff6e5112d24ce6769c/votes.csv",sep=";", encoding="latin1")
 
 photos_partis = {'DR' : "https://raw.githubusercontent.com/clemence-g/Politicaltest/c8a160c73198089e20e885e9bf189e85acbb45b6/Pictures/DR.jpg",
@@ -181,6 +184,7 @@ else:
 
 
         
+
 
 
 
