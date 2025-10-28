@@ -9,11 +9,9 @@ import json
 import os
 
 
-# --- Connexion à Google Sheets ---
 SCOPE = ["https://www.googleapis.com/auth/spreadsheets"]
 
-# Charger les credentials depuis Streamlit Secrets
-service_account_info = st.secrets["general"]["GOOGLE_CREDENTIALS"]
+service_account_info = json.loads(st.secrets["general"]["GOOGLE_CREDENTIALS"])
 creds = Credentials.from_service_account_info(service_account_info, scopes=SCOPE)
 client = gspread.authorize(creds)
 
@@ -183,6 +181,7 @@ else:
 
 
         
+
 
 
 
