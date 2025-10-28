@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Oct 24 18:10:40 2025
-
-@author: User
-"""
 import streamlit as st
 import pandas as pd
 import numpy as np
+import gspread
+from google.oauth2.service_account import Credentials
+from datetime import datetime
+
+
+# --- Connexion à Google Sheets ---
+SCOPE = ["https://www.googleapis.com/auth/spreadsheets"]
+creds = Credentials.from_service_account_file("credentials.json", scopes=SCOPE)
+client = gspread.authorize(creds)
 
 df = pd.read_csv("https://raw.githubusercontent.com/clemence-g/Politicaltest/3ae7e697af8cadd3cb1847ff6e5112d24ce6769c/votes.csv",sep=";", encoding="latin1")
 
@@ -49,6 +53,9 @@ colors = {
     "RN": "#1A237E",
     "LIOT": "#C7A76C"
 }
+#-------------------------------------------------------------------------------------------------------------------------
+
+nom_utilisateur = st.text_input("Entre ton nom/pseudo :")
 
 # --- Initialisation des points dans session_state pour garder l'état ---
 if "points" not in st.session_state:
@@ -154,6 +161,13 @@ else:
     st.bar_chart(data=points_sorted, horizontal = True, x_label = "Points", y_label = "Partis", sort = False, use_container_width=False,width = 600,height = 400,color = "#ffaa00")
     
     
+    if nom_utilisateur.strip() == "":
+        st.warning("⚠️ Merci d’entrer ton prénom avant d’envoyer.")
+    else:
+        gagnants_str = ", ".join(winners)
+        sheet = client.open("Résultats Quiz Politique").sheet1
+        sheet.append_row([nom_utilisateur, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+      
     recommencer = st.button("Recommencer le quiz", type = "primary")
     if recommencer :
         
@@ -162,5 +176,6 @@ else:
 
 
         
+
 
 
