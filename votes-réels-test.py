@@ -170,7 +170,7 @@ else:
         st.warning("⚠️ Merci d’entrer ton prénom avant d’envoyer.")
     else:
         gagnants_str = ", ".join(winners)
-        sheet = client.open("Résultats Quiz Politique").sheet1
+        sheet = client.open("Résultats test politique").sheet1
         sheet.append_row([nom_utilisateur, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
       
     recommencer = st.button("Recommencer le quiz", type = "primary")
@@ -181,6 +181,7 @@ else:
 
 
         
+
 
 
 
