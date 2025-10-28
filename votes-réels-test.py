@@ -5,11 +5,16 @@ import numpy as np
 import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
+import json
+import os
 
 
 # --- Connexion à Google Sheets ---
 SCOPE = ["https://www.googleapis.com/auth/spreadsheets"]
-creds = Credentials.from_service_account_file("credentials.json", scopes=SCOPE)
+
+# Charger les credentials depuis Streamlit Secrets
+service_account_info = json.loads(st.secrets["GOOGLE_CREDENTIALS"])
+creds = Credentials.from_service_account_info(service_account_info, scopes=SCOPE)
 client = gspread.authorize(creds)
 
 df = pd.read_csv("https://raw.githubusercontent.com/clemence-g/Politicaltest/3ae7e697af8cadd3cb1847ff6e5112d24ce6769c/votes.csv",sep=";", encoding="latin1")
@@ -176,6 +181,7 @@ else:
 
 
         
+
 
 
 
