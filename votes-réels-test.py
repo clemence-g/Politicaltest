@@ -71,7 +71,7 @@ if 'historique' not in st.session_state:
     st.session_state.historique = []
 
 if 'nom_utilisateur' not in st.session_state:
-    st.text_input("Entre ton nom/pseudo :")
+    st.session_state.nom_utilisateur = ""
     
     
 def trouve_parti(vote, choix):   
@@ -96,92 +96,106 @@ st.title("Quiz Politique - À quel parti appartenez-vous ?")
 
 
 
-if 'nom_utilisateur' == "":
-  nom_utilisateur = st.text_input("Entre ton nom/pseudo :")
-else:
+if st.session_state.nom_utilisateur == "":
+nom_input = st.text_input("Nom/Pseudo :")
 
+  if st.button("Commencer") and nom_input.strip() != "":
+        st.session_state.nom_utilisateur = nom_input.strip()
+        st.rerun()
+  elif st.button("Commencer"):
+        st.warning("Merci d'entrer un nom avant de commencer !")
+
+  st.stop()  # ⛔ Stop ici tant que le nom n'est pas donné
+st.stop()  
 # --- Vérifier si on a fini tous les votes ---
-  if st.session_state.vote_index < len(df):
-      vote = st.session_state.vote_index
-      st.write("#### Vote", vote+1, "sur", len(df)+1)
-      st.subheader(df.loc[vote, 'Titre'])
+if st.session_state.vote_index < len(df):
+    vote = st.session_state.vote_index
+    st.write("#### Vote", vote+1, "sur", len(df)+1)
+    st.subheader(df.loc[vote, 'Titre'])
     
     
-      pour = st.button("Pour", key=f"p_{vote}")
-      contre = st.button("Contre", key=f"c_{vote}")
-      abstention = st.button("Abstention", key=f"a_{vote}")
-      choix = None
+    pour = st.button("Pour", key=f"p_{vote}")
+    contre = st.button("Contre", key=f"c_{vote}")
+    abstention = st.button("Abstention", key=f"a_{vote}")
+    choix = None
     
-      if pour:
-          choix = "P"
-      elif contre:
-          choix = "C"
-      elif abstention:
-          choix="A"
+    if pour:
+        choix = "P"
+    elif contre:
+        choix = "C"
+    elif abstention:
+        choix="A"
     
 
-      if choix:
-          liste_1 = trouve_parti(vote, choix)
-          add_points(liste_1)
+    if choix:
+        liste_1 = trouve_parti(vote, choix)
+        add_points(liste_1)
         
-          st.session_state.historique.append({
-          "vote": vote,
-          "choix": choix,
-          "partis": liste_1
+        st.session_state.historique.append({
+        "vote": vote,
+        "choix": choix,
+        "partis": liste_1
       })
 
-          st.session_state.vote_index += 1
-          st.rerun()  # relance la page pour passer au vote suivant
-        
-      if st.session_state.vote_index >=1:
-          if st.button("Back",type = "tertiary"):
-              last_list = st.session_state.historique.pop()
-              last_list = last_list["partis"]
-              delete_points(last_list)
+        st.session_state.vote_index += 1
+        st.rerun()  # relance la page pour passer au vote suivant
+       
+    if st.session_state.vote_index >=1:
+        if st.button("Back",type = "tertiary"):
+            last_list = st.session_state.historique.pop()
+            last_list = last_list["partis"]
+            delete_points(last_list)
 
-              st.session_state.vote_index -= 1
-              st.rerun()
+            st.session_state.vote_index -= 1
+            st.rerun()
 
   else:
-      maximum = max(st.session_state.points.values())
-      winners = []
+    maximum = max(st.session_state.points.values())
+    winners = []
     
-      for k,v in st.session_state.points.items():
-          if v == maximum:
-            winners.append(k)
-      if len(winners) == 1:
-          st.write("Le parti qui vous correspond le plus est", acronyme_nom[winners[0]], "(", winners[0], ")")
-          st.write(f"[Voir la description du groupe sur datan.fr](https://datan.fr/groupes/legislature-17/{winners[0]})")
+    for k,v in st.session_state.points.items():
+        if v == maximum:
+          winners.append(k)
+    if len(winners) == 1:
+      gagnants_str = ", ".join(winners)
+      sheet = client.open_by_key("1SzLS8_dZn-ET_Rwqc9hlm0xpkXWOuZMapKvehTrcN7g").sheet1
+      sheet.append_row([nom_utilisateur, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+      st.write("Le parti qui vous correspond le plus est", acronyme_nom[winners[0]], "(", winners[0], ")")
+      st.write(f"[Voir la description du groupe sur datan.fr](https://datan.fr/groupes/legislature-17/{winners[0]})")
+      col1, col2, col3 = st.columns([1,2,1])  # la colonne du milieu est plus large
+      with col2:
+          st.image(photos_partis[winners[0]]) 
+    else:
+      gagnants_str = ", ".join(winners)
+      sheet = client.open_by_key("1SzLS8_dZn-ET_Rwqc9hlm0xpkXWOuZMapKvehTrcN7g").sheet1
+      sheet.append_row([nom_utilisateur, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+        
+      st.write("Les partis qui vous correspondent le plus sont: ")
+
+      for parti in winners  :
+          st.write(acronyme_nom[parti], "(",parti,")")
+          st.write(f"[Voir la description du groupe sur datan.fr](https://datan.fr/groupes/legislature-17/{parti})")
           col1, col2, col3 = st.columns([1,2,1])  # la colonne du milieu est plus large
           with col2:
-              st.image(photos_partis[winners[0]]) 
-      else:
-          st.write("Les partis qui vous correspondent le plus sont: ")
-          for parti in winners  :
-              st.write(acronyme_nom[parti], "(",parti,")")
-              st.write(f"[Voir la description du groupe sur datan.fr](https://datan.fr/groupes/legislature-17/{parti})")
-              col1, col2, col3 = st.columns([1,2,1])  # la colonne du milieu est plus large
-              with col2:
-                  st.image(photos_partis[parti]) 
-            
-      points_sorted = dict(sorted(st.session_state.points.items(), key=lambda item: int(item[1]), reverse=True))
+              st.image(photos_partis[parti]) 
+          
+    points_sorted = dict(sorted(st.session_state.points.items(), key=lambda item: int(item[1]), reverse=True))
    
-      st.bar_chart(data=points_sorted, horizontal = True, x_label = "Points", y_label = "Partis", sort = False, use_container_width=False,width = 600,height = 400,color = "#ffaa00")
+    st.bar_chart(data=points_sorted, horizontal = True, x_label = "Points", y_label = "Partis", sort = False, use_container_width=False,width = 600,height = 400,color = "#ffaa00")
   
     
-      if st.button("Finir le quiz", type = "primary"):
-          gagnants_str = ", ".join(winners)
-          sheet = client.open_by_key("1SzLS8_dZn-ET_Rwqc9hlm0xpkXWOuZMapKvehTrcN7g").sheet1
-          sheet.append_row([nom_utilisateur, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
-      
-      recommencer = st.button("Recommencer le quiz", type = "primary")
-      if recommencer :
+    if st.button("Finir le quiz", type = "primary"):
         
-          st.session_state.points = {parti: 0 for parti in parti_liste}
-          st.session_state.vote_index = 0
+    
+    recommencer = st.button("Recommencer le quiz", type = "primary")
+    if recommencer :
+        
+        st.session_state.points = {parti: 0 for parti in parti_liste}
+        st.session_state.vote_index = 0
 
 
         
+
 
 
 
