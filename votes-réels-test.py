@@ -98,7 +98,7 @@ st.title("Quiz Politique - À quel parti appartenez-vous ?")
 
 if st.session_state.nom_utilisateur == "":
   nom_input = st.text_input("Nom/Pseudo :")
-
+  st.stop()
   if st.button("Commencer"):
       if nom_input.strip() != "":
           st.session_state.nom_utilisateur = nom_input.strip()
@@ -192,6 +192,7 @@ else:
 
 
         
+
 
 
 
