@@ -105,9 +105,7 @@ if st.session_state.nom_utilisateur == "":
           st.rerun()
       else:
           st.warning("Merci d'entrer un nom avant de commencer !")
-
-  st.stop()  # ⛔ Stop ici tant que le nom n'est pas donné
-st.stop()  
+ 
 # --- Vérifier si on a fini tous les votes ---
 if st.session_state.vote_index < len(df):
     vote = st.session_state.vote_index
@@ -194,6 +192,7 @@ else:
 
 
         
+
 
 
 
