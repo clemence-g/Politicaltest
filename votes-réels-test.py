@@ -72,6 +72,8 @@ if 'historique' not in st.session_state:
 
 if 'nom_utilisateur' not in st.session_state:
     st.session_state.nom_utilisateur = ""
+if "result_saved" not in st.session_state:
+    st.session_state.result_saved = False
     
     
 def trouve_parti(vote, choix):   
@@ -156,18 +158,12 @@ else:
           if v == maximum:
             winners.append(k)
       if len(winners) == 1:
-        gagnants_str = ", ".join(winners)
-        sheet = client.open_by_key("1SzLS8_dZn-ET_Rwqc9hlm0xpkXWOuZMapKvehTrcN7g").sheet1
-        sheet.append_row([st.session_state.nom_utilisateur, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
         st.write("Le parti qui vous correspond le plus est", acronyme_nom[winners[0]], "(", winners[0], ")")
         st.write(f"[Voir la description du groupe sur datan.fr](https://datan.fr/groupes/legislature-17/{winners[0]})")
         col1, col2, col3 = st.columns([1,2,1])  # la colonne du milieu est plus large
         with col2:
             st.image(photos_partis[winners[0]]) 
       else:
-        gagnants_str = ", ".join(winners)
-        sheet = client.open_by_key("1SzLS8_dZn-ET_Rwqc9hlm0xpkXWOuZMapKvehTrcN7g").sheet1
-        sheet.append_row([st.session_state.nom_utilisateur, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
         
         st.write("Les partis qui vous correspondent le plus sont: ")
 
@@ -181,17 +177,24 @@ else:
       points_sorted = dict(sorted(st.session_state.points.items(), key=lambda item: int(item[1]), reverse=True))
    
       st.bar_chart(data=points_sorted, horizontal = True, x_label = "Points", y_label = "Partis", sort = False, use_container_width=False,width = 600,height = 400,color = "#ffaa00")
+      if not st.session_state.result_saved:
+            gagnants_str = ", ".join(winners)
+            sheet = client.open_by_key("1SzLS8_dZn-ET_Rwqc9hlm0xpkXWOuZMapKvehTrcN7g").sheet1
+            sheet.append_row([st.session_state.nom_utilisateur, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+            st.session_state.result_saved = True
 
         
     
       recommencer = st.button("Recommencer le quiz", type = "primary")
       if recommencer :
-        
+          st.session_state.result_saved = False
+
           st.session_state.points = {parti: 0 for parti in parti_liste}
           st.session_state.vote_index = 0
 
 
         
+
 
 
 
