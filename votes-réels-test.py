@@ -60,7 +60,6 @@ colors = {
 }
 #-------------------------------------------------------------------------------------------------------------------------
 
-nom_utilisateur = st.text_input("Entre ton nom/pseudo :")
 
 # --- Initialisation des points dans session_state pour garder l'état ---
 if "points" not in st.session_state:
@@ -70,7 +69,9 @@ if "vote_index" not in st.session_state:
     
 if 'historique' not in st.session_state:
     st.session_state.historique = []
-    
+
+if 'nom_utilisateur' not in st.session_state:
+    st.text_input("Entre ton nom/pseudo :")
     
     
 def trouve_parti(vote, choix):   
@@ -181,6 +182,7 @@ else:
 
 
         
+
 
 
 
