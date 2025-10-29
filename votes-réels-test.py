@@ -157,7 +157,7 @@ else:
       if len(winners) == 1:
         gagnants_str = ", ".join(winners)
         sheet = client.open_by_key("1SzLS8_dZn-ET_Rwqc9hlm0xpkXWOuZMapKvehTrcN7g").sheet1
-        sheet.append_row([nom_utilisateur, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+        sheet.append_row([nom_input, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
         st.write("Le parti qui vous correspond le plus est", acronyme_nom[winners[0]], "(", winners[0], ")")
         st.write(f"[Voir la description du groupe sur datan.fr](https://datan.fr/groupes/legislature-17/{winners[0]})")
         col1, col2, col3 = st.columns([1,2,1])  # la colonne du milieu est plus large
@@ -166,7 +166,7 @@ else:
       else:
         gagnants_str = ", ".join(winners)
         sheet = client.open_by_key("1SzLS8_dZn-ET_Rwqc9hlm0xpkXWOuZMapKvehTrcN7g").sheet1
-        sheet.append_row([nom_utilisateur, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+        sheet.append_row([nom_input, gagnants_str, datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
         
         st.write("Les partis qui vous correspondent le plus sont: ")
 
@@ -191,6 +191,7 @@ else:
 
 
         
+
 
 
 
