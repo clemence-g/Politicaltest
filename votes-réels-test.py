@@ -149,7 +149,7 @@ if st.session_state.vote_index < len(df):
             st.session_state.vote_index -= 1
             st.rerun()
 
-  else:
+else:
     maximum = max(st.session_state.points.values())
     winners = []
     
@@ -193,6 +193,7 @@ if st.session_state.vote_index < len(df):
 
 
         
+
 
 
 
