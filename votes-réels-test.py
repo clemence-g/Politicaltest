@@ -96,7 +96,7 @@ st.title("Quiz Politique - À quel parti appartenez-vous ?")
 
 
 
-if 'nom_utilisateur' = "":
+if 'nom_utilisateur' == "":
   nom_utilisateur = st.text_input("Entre ton nom/pseudo :")
 else:
 
@@ -182,6 +182,7 @@ else:
 
 
         
+
 
 
 
