@@ -191,9 +191,11 @@ else:
 
           st.session_state.points = {parti: 0 for parti in parti_liste}
           st.session_state.vote_index = 0
+          st.rerun()
 
 
         
+
 
 
 
