@@ -182,9 +182,7 @@ if st.session_state.vote_index < len(df):
     points_sorted = dict(sorted(st.session_state.points.items(), key=lambda item: int(item[1]), reverse=True))
    
     st.bar_chart(data=points_sorted, horizontal = True, x_label = "Points", y_label = "Partis", sort = False, use_container_width=False,width = 600,height = 400,color = "#ffaa00")
-  
-    
-    if st.button("Finir le quiz", type = "primary"):
+
         
     
     recommencer = st.button("Recommencer le quiz", type = "primary")
@@ -195,6 +193,7 @@ if st.session_state.vote_index < len(df):
 
 
         
+
 
 
 
